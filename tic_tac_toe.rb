@@ -31,7 +31,7 @@ class TicTacToe
     4.times do
       print 'Player 1, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
-      place_marker(@mark_1, coordinate)
+      place_marker(@mark1, coordinate)
       display_board
       if check_column || check_row || check_diagonal
         winner = true
@@ -40,7 +40,7 @@ class TicTacToe
       end
       print 'Player 2, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
-      place_marker(@mark_2, coordinate)
+      place_marker(@mark2, coordinate)
       display_board
       if check_column || check_row || check_diagonal
         winner = true
@@ -50,7 +50,7 @@ class TicTacToe
     end
     print 'Player 1, enter the coordinate for your mark: '
     coordinate = gets.chomp.to_i
-    place_marker(@mark_1, coordinate)
+    place_marker(@mark1, coordinate)
     display_board
     if check_column || check_row || check_diagonal 
       winner = true
