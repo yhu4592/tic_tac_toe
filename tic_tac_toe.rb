@@ -6,6 +6,8 @@ class TicTacToe
     @board = [['1', '2', '3'],
               ['4', '5', '6'],
               ['7', '8', '9']]
+    @turns = 0
+    @winner = false
     print 'Player 1, enter your marker: '
     @mark1 = gets.chomp
     print 'Player 2, enter your marker: '
@@ -27,40 +29,41 @@ class TicTacToe
   # Executes game logic
   def play_game
     display_board
-    winner = false
-    4.times do
+    loop do
       print 'Player 1, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
       place_marker(@mark1, coordinate)
       display_board
       if check_column || check_row || check_diagonal
-        winner = true
+        @winner = true
         puts 'Winner is Player 1.'
-        break
       end
+      break if end_game?
+
       print 'Player 2, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
       place_marker(@mark2, coordinate)
       display_board
       if check_column || check_row || check_diagonal
-        winner = true
+        @winner = true
         puts 'Winner is Player 2.'
-        break
       end
+      break if end_game?
     end
-    print 'Player 1, enter the coordinate for your mark: '
-    coordinate = gets.chomp.to_i
-    place_marker(@mark1, coordinate)
-    display_board
-    if check_column || check_row || check_diagonal 
-      winner = true
-      puts 'Winner is Player 1.'
-    end
-    puts 'Game is tied.' unless winner
+    puts 'Game is tied.' unless @winner
+  end
+  
+  
+
+
+  # Ends game if board is full or a player wins
+  def end_game?
+    true if @turns == 9 || @winner
   end
 
   # Places player marker on board on coordinate
   def place_marker(marker, coordinate)
+    @turns += 1
     if coordinate.between?(1, 3)
       @board[0][coordinate - 1] = marker
     elsif coordinate.between?(4, 6)
