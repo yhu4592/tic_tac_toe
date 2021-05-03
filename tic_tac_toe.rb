@@ -101,6 +101,16 @@ class TicTacToe
     false
   end
 
+  def free_position?(coordinate)
+    if coordinate.between?(1, 3)
+      !(@board[0][coordinate - 1].eql?(@mark1) || @board[0][coordinate - 1].eql?(@mark2))
+    elsif coordinate.between?(4, 6)
+      !(@board[1][coordinate - 4].eql?(@mark1) || @board[1][coordinate - 4].eql?(@mark2))
+    else
+      !(@board[2][coordinate - 7].eql?(@mark1) || @board[2][coordinate - 7].eql?(@mark2))
+    end
+  end
+
   def reset
     9.times do |i|
       place_marker((i + 1).to_s, i)
