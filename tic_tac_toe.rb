@@ -41,7 +41,13 @@ class TicTacToe
 
       # Checks input if another game should be executed
       print 'Another game? (Y/N): '
+
+      # Checks input to continue game, loops until valid input is given
       another_game = gets.chomp.upcase
+      until another_game.eql?('N') || another_game.eql?('Y')
+        print 'Enter "Y" or "N": '
+        another_game = gets.chomp.upcase
+      end
       break if another_game.eql?('N')
 
       # If game continues, resets board and variables
