@@ -9,7 +9,10 @@ class TicTacToe
               ['4', '5', '6'],
               ['7', '8', '9']]
     @turns = 0
-    @winner = false
+    @winner1 = false
+    @winner2 = false
+    @score1 = 0
+    @score2 = 0
     print 'Player 1, enter your marker: '
     @mark1 = gets.chomp
     print 'Player 2, enter your marker: '
@@ -32,9 +35,19 @@ class TicTacToe
   def game
     loop do
       play_game
+
+      # Prints score
+      puts "Player 1: #{@score1} \nPlayer 2: #{@score2}"
+
+      # Checks input if another game should be executed
       print 'Another game? (Y/N): '
       another_game = gets.chomp.upcase
       break if another_game.eql?('N')
+
+      # Resets board if game continues
+      reset
+      @turns = 0
+      @winner1 = @winner2 = false
     end
   end
 
@@ -56,8 +69,9 @@ class TicTacToe
 
       # Checks winning condition from placed marker
       if check_column || check_row || check_diagonal
-        @winner = true
+        @winner1 = true
         puts 'Winner is Player 1.'
+        @score1 += 1
       end
 
       # Ends game if board fills up i.e. 9 turns passed
@@ -77,8 +91,9 @@ class TicTacToe
 
       # Checks winning condition from placed marker
       if check_column || check_row || check_diagonal
-        @winner = true
+        @winner2 = true
         puts 'Winner is Player 2.'
+        @score2 += 1
       end
 
       # Breaks game if board is filled i.e. 9 turns passed
@@ -86,12 +101,12 @@ class TicTacToe
     end
 
     # Prints if no winner is declared that breaks the loop
-    puts 'Game is tied.' unless @winner
+    puts 'Game is tied.' unless @winner1 || @winner2
   end
 
   # Ends game if board is full or a player wins
   def end_game?
-    true if @turns == 9 || @winner
+    true if @turns == 9 || @winner1 || @winner2
   end
 
   # Places player marker on board on coordinate
@@ -151,9 +166,9 @@ class TicTacToe
 
   # Reinitializes board
   def reset
-    9.times do |i|
-      place_marker((i + 1).to_s, i)
-    end
+    @board = [['1', '2', '3'],
+              ['4', '5', '6'],
+              ['7', '8', '9']]
   end
 end
 
