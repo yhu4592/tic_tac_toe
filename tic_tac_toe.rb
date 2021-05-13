@@ -29,38 +29,53 @@ class TicTacToe
   # Executes game logic
   def play_game
     display_board
+    # Loops player turns until board fills at 9 turns
     loop do
+      # Executes Player 1's turn
       print 'Player 1, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
+
+      # Checks if position is free, loops until a valid position is inputted
       until free_position?(coordinate)
-        print "Position is already filled. Pick another: "
+        print 'Position is already filled. Pick another: '
         coordinate = gets.chomp.to_i end
       place_marker(@mark1, coordinate)
       display_board
+
+      # Checks winning condition from placed marker
       if check_column || check_row || check_diagonal
         @winner = true
         puts 'Winner is Player 1.'
       end
+
+      # Ends game if board fills up i.e. 9 turns passed
       break if end_game?
+
+      # Executes Player 2's turn
       print 'Player 2, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
+
+      # Checks if position is free, loops until a valid position is inputted
       until free_position?(coordinate)
-        print "Position is already filled. Pick another: "
+        print 'Position is already filled. Pick another: '
         coordinate = gets.chomp.to_i
       end
       place_marker(@mark2, coordinate)
       display_board
+
+      # Checks winning condition from placed marker
       if check_column || check_row || check_diagonal
         @winner = true
         puts 'Winner is Player 2.'
       end
+
+      # Breaks game if board is filled i.e. 9 turns passed
       break if end_game?
     end
+
+    # Prints if no winner is declared that breaks the loop
     puts 'Game is tied.' unless @winner
   end
-    
-
-  
 
   # Ends game if board is full or a player wins
   def end_game?
@@ -69,6 +84,7 @@ class TicTacToe
 
   # Places player marker on board on coordinate
   def place_marker(marker, coordinate)
+    # Incredents turn count
     @turns += 1
     if coordinate.between?(1, 3)
       @board[0][coordinate - 1] = marker
@@ -109,7 +125,7 @@ class TicTacToe
 
     false
   end
-  
+
   # Checks if the coordinate is free
   def free_position?(coordinate)
     if coordinate.between?(1, 3)
@@ -121,6 +137,7 @@ class TicTacToe
     end
   end
 
+  # Reinitializes board
   def reset
     9.times do |i|
       place_marker((i + 1).to_s, i)
@@ -129,4 +146,3 @@ class TicTacToe
 end
 
 board = TicTacToe.new
-
