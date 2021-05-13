@@ -2,6 +2,8 @@
 
 # Tic_tac_toe class
 class TicTacToe
+
+  # Gets player markers, executes game
   def initialize
     @board = [['1', '2', '3'],
               ['4', '5', '6'],
@@ -12,7 +14,7 @@ class TicTacToe
     @mark1 = gets.chomp
     print 'Player 2, enter your marker: '
     @mark2 = gets.chomp
-    play_game
+    game
   end
 
   # Displays board to stdout
@@ -23,6 +25,16 @@ class TicTacToe
         print "| #{space} "
       end
       print "|\n  -   -   -\n"
+    end
+  end
+
+  # Calls play_game to execute game, loops while players want to continue playing
+  def game
+    loop do
+      play_game
+      print 'Another game? (Y/N): '
+      another_game = gets.chomp.upcase
+      break if another_game.eql?('N')
     end
   end
 
