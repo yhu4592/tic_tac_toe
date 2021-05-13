@@ -32,6 +32,9 @@ class TicTacToe
     loop do
       print 'Player 1, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
+      until free_position?(coordinate)
+        print "Position is already filled. Pick another: "
+        coordinate = gets.chomp.to_i end
       place_marker(@mark1, coordinate)
       display_board
       if check_column || check_row || check_diagonal
@@ -39,9 +42,12 @@ class TicTacToe
         puts 'Winner is Player 1.'
       end
       break if end_game?
-
       print 'Player 2, enter the coordinate for your mark: '
       coordinate = gets.chomp.to_i
+      until free_position?(coordinate)
+        print "Position is already filled. Pick another: "
+        coordinate = gets.chomp.to_i
+      end
       place_marker(@mark2, coordinate)
       display_board
       if check_column || check_row || check_diagonal
@@ -52,9 +58,9 @@ class TicTacToe
     end
     puts 'Game is tied.' unless @winner
   end
-  
-  
+    
 
+  
 
   # Ends game if board is full or a player wins
   def end_game?
@@ -103,7 +109,8 @@ class TicTacToe
 
     false
   end
-
+  
+  # Checks if the coordinate is free
   def free_position?(coordinate)
     if coordinate.between?(1, 3)
       !(@board[0][coordinate - 1].eql?(@mark1) || @board[0][coordinate - 1].eql?(@mark2))
@@ -122,3 +129,4 @@ class TicTacToe
 end
 
 board = TicTacToe.new
+
