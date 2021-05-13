@@ -44,7 +44,7 @@ class TicTacToe
       another_game = gets.chomp.upcase
       break if another_game.eql?('N')
 
-      # Resets board if game continues
+      # If game continues, resets board and variables
       reset
       @turns = 0
       @winner1 = @winner2 = false
